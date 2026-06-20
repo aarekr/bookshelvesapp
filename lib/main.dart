@@ -12,6 +12,7 @@ getCompletedButton() { return OutlinedButton(child: Text("Completed"), onPressed
 Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox("storage");
+  Get.lazyPut<BookListController>(() => BookListController());
   runApp(
     GetMaterialApp(
       initialRoute: "/",
@@ -24,6 +25,59 @@ Future<void> main() async {
       ],
     ),
   );
+}
+
+class BookListController {
+  final storage = Hive.box("storage");
+  RxList bookList;
+
+  BookListController() : bookList = [].obs {
+    bookList.value = storage.get('bookList') ?? [];
+  }
+
+  void add(String title, String author, String language) {
+    var newBook = {'title': title, 'author': author, 'language': language, 'status': 'not started'};
+    print("newBook: ${newBook}");
+    bookList.add(newBook);
+    storage.put('bookList', bookList);
+    Get.to(() => NotStartedScreen());
+  }
+
+  void _save() {
+    storage.put('bookList', bookList.map((book) => book).toList());
+    bookList.refresh();
+  }
+
+  void start(book) {
+    for (var i=0; i<bookList.length; i++) {
+      if (bookList[i] == book) {
+        bookList[i]["status"] = "reading";
+        break;
+      }
+    }
+    bookList.refresh();
+    _save();
+    Get.to(() => ReadingScreen());
+  }
+
+  void complete(book) {
+    for (var i=0; i<bookList.length; i++) {
+      if (bookList[i] == book) {
+        bookList[i]["status"] = "completed";
+        break;
+      }
+    }
+    bookList.refresh();
+    _save();
+    Get.to(() => CompletedScreen());
+  }
+
+  void delete(book) {
+    bookList.remove(book);
+    bookList.refresh();
+    _save();
+    Get.to(() => HomeScreen());
+  }
 }
 
 class HomeScreen extends StatelessWidget {
