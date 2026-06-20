@@ -1,19 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-void main() {
-  runApp(const MainApp());
+main() {
+  runApp(
+    GetMaterialApp(
+      initialRoute: "/",
+      getPages: [
+        GetPage(name: "/", page: () => HomeScreen()),
+        GetPage(name: "/addbook", page: () => AddBookScreen()),
+        GetPage(name: "/notstarted", page: () => NotStartedScreen()),
+        GetPage(name: "/reading", page: () => ReadingScreen()),
+        GetPage(name: "/completed", page: () => CompletedScreen()),
+      ],
+    ),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return Scaffold(
+      body: Center(
+        child: Text('Home Screen'),
+      ),
+    );
+  }
+}
+
+class AddBookScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Add Book Screen'),
+      ),
+    );
+  }
+}
+
+class NotStartedScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Not Started Screen'),
+      ),
+    );
+  }
+}
+
+class ReadingScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Reading Screen'),
+      ),
+    );
+  }
+}
+
+class CompletedScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Completed Screen'),
       ),
     );
   }

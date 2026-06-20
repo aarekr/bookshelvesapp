@@ -1,3 +1,3 @@
 # Bookshelves App
 
-A new Flutter project.
+Applications for managing books
