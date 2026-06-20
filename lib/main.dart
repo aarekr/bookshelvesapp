@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 
 getHomeButton() { return OutlinedButton(child: Text("Home"), onPressed: () => Get.to(() => HomeScreen())); }
 getAddBookButton() { return OutlinedButton(child: Text("Add Book"), onPressed: () => Get.to(() => AddBookScreen())); }
@@ -7,7 +9,9 @@ getNotStartedButton() { return OutlinedButton(child: Text("Not Started"), onPres
 getReadingButton() { return OutlinedButton(child: Text("Reading"), onPressed: () => Get.to(() => ReadingScreen())); }
 getCompletedButton() { return OutlinedButton(child: Text("Completed"), onPressed: () => Get.to(() => CompletedScreen())); }
 
-main() {
+Future<void> main() async {
+  await Hive.initFlutter();
+  await Hive.openBox("storage");
   runApp(
     GetMaterialApp(
       initialRoute: "/",
