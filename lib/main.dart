@@ -6,6 +6,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 import 'dart:ui';
 
+getAppBar(title) {
+  return AppBar(
+    backgroundColor: Theme.of(Get.context!).colorScheme.inversePrimary,
+    title: Center(child: Text(title)),
+  );
+}
+
 getHomeButton() {
   return OutlinedButton(child: Text("Home"), onPressed: () => Get.to(() => HomeScreen()));
 }
@@ -189,10 +196,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(child: Text("Bookshelves")),
-      ),
+      appBar: getAppBar("Bookshelves"),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth < Breakpoints.mobile) {  // mobile layout
@@ -228,10 +232,7 @@ class AddBookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(child: Text("Add Book")),
-      ),
+      appBar: getAppBar("Add Book"),
       body: Center(child:
         Container(
           constraints: BoxConstraints(maxWidth: 800),
@@ -289,10 +290,7 @@ class NotStartedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(child: Text("Not Started")),
-      ),
+      appBar: getAppBar("Not Started"),
       body: Center(child:
         Container(
           constraints: BoxConstraints(maxWidth: 800),
@@ -328,10 +326,7 @@ class ReadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(child: Text("Reading")),
-      ),
+      appBar: getAppBar("Reading"),
       body: Center(child:
         Container(
           constraints: BoxConstraints(maxWidth: 800),
@@ -367,10 +362,7 @@ class CompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(child: Text("Completed")),
-      ),
+      appBar: getAppBar("Completed"),
       body: Center(child:
         Container(
           constraints: BoxConstraints(maxWidth: 800),
