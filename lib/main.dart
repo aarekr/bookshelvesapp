@@ -48,6 +48,47 @@ getNavigationButtons(currentScreen) {
   );
 }
 
+getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
+  var marginSize;
+  var headerFontSize;
+  var textFontSize;
+  if (layoutSize == 'mobile') {
+    marginSize = 40.0;
+    headerFontSize = 30.0;
+    textFontSize = 20.0;
+  }
+  else if (layoutSize == 'tablet') {
+    marginSize = 50.0;
+    headerFontSize = 35.0;
+    textFontSize = 23.0;
+  }
+  else {
+    marginSize = 60.0;
+    headerFontSize = 40.0;
+    textFontSize = 25.0;
+  }
+  return Container(
+    alignment: Alignment.center,
+    margin: EdgeInsets.all(marginSize),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(children: [Text("Statistics", style: TextStyle(height: 3, fontSize: headerFontSize))]),
+        Row(children: [Text("Books to read: ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
+          Text("${getNumberOfBooksWithStatus('not started')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
+        ]),
+        Row(children: [Text("Reading now  : ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
+          Text("${getNumberOfBooksWithStatus('reading')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
+        ]),
+        Row(children: [Text("You have read: ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
+          Text("${getNumberOfBooksWithStatus('completed')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
+        ]),
+      ]
+    ),
+  );
+}
+
 class CustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
@@ -155,72 +196,13 @@ class HomeScreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth < Breakpoints.mobile) {  // mobile layout
-            return Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.all(40),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [Text("Statistics", style: TextStyle(height: 3, fontSize: 30))]),
-                  Row(children: [Text("Books to read: ", style: TextStyle(height: 1.2, fontSize: 20)),
-                    Text("${getNumberOfBooksWithStatus('not started')}", style: TextStyle(height: 1.2, fontSize: 20))
-                  ]),
-                  Row(children: [Text("Reading now  : ", style: TextStyle(height: 1.2, fontSize: 20)),
-                    Text("${getNumberOfBooksWithStatus('reading')}", style: TextStyle(height: 1.2, fontSize: 20))
-                  ]),
-                  Row(children: [Text("You have read: ", style: TextStyle(height: 1.2, fontSize: 20)),
-                    Text("${getNumberOfBooksWithStatus('completed')}", style: TextStyle(height: 1.2, fontSize: 20))
-                  ]),
-                ]
-              ),
-            );
+            return getBookStatistics('mobile', controller, getNumberOfBooksWithStatus);
           }
           else if (constraints.maxWidth < Breakpoints.tablet) {  // tablet layout
-            return Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.all(50),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [Text("Statistics", style: TextStyle(height: 3, fontSize: 35))]),
-                  Row(children: [Text("Books to read: ", style: TextStyle(height: 1.2, fontSize: 23)),
-                    Text("${getNumberOfBooksWithStatus('not started')}", style: TextStyle(height: 1.2, fontSize: 23))
-                  ]),
-                  Row(children: [Text("Reading now  : ", style: TextStyle(height: 1.2, fontSize: 23)),
-                    Text("${getNumberOfBooksWithStatus('reading')}", style: TextStyle(height: 1.2, fontSize: 23))
-                  ]),
-                  Row(children: [Text("You have read: ", style: TextStyle(height: 1.2, fontSize: 23)),
-                    Text("${getNumberOfBooksWithStatus('completed')}", style: TextStyle(height: 1.2, fontSize: 23))
-                  ]),
-                ]
-              ),
-            );
+            return getBookStatistics('tablet', controller, getNumberOfBooksWithStatus);
           }
           else {  // large screen layout
-            return Container(
-              constraints: BoxConstraints(maxWidth: 800),
-              alignment: Alignment.center,
-              margin: const EdgeInsets.all(60),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [Text("Statistics", style: TextStyle(height: 3, fontSize: 40))]),
-                  Row(children: [Text("Books to read: ", style: TextStyle(height: 1.2, fontSize: 25)),
-                    Text("${getNumberOfBooksWithStatus('not started')}", style: TextStyle(height: 1.2, fontSize: 25))
-                  ]),
-                  Row(children: [Text("Reading now  : ", style: TextStyle(height: 1.2, fontSize: 25)),
-                    Text("${getNumberOfBooksWithStatus('reading')}", style: TextStyle(height: 1.2, fontSize: 25))
-                  ]),
-                  Row(children: [Text("You have read: ", style: TextStyle(height: 1.2, fontSize: 25)),
-                    Text("${getNumberOfBooksWithStatus('completed')}", style: TextStyle(height: 1.2, fontSize: 25))
-                  ]),
-                  Column(children: [Text("BookPieChart", style: TextStyle(height: 3, fontSize: 30))]),
-                ]
-              ),
-            );
+            return getBookStatistics('large', controller, getNumberOfBooksWithStatus);
           }
         }
       ),
