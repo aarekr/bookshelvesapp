@@ -22,6 +22,32 @@ getCompletedButton() {
   return OutlinedButton(child: Text("Completed"), onPressed: () => Get.to(() => CompletedScreen()));
 }
 
+getNavigationButtons(currentScreen) {
+  List<Widget> buttons = [];
+  if (currentScreen != 'HomeScreen') {
+    buttons.add(getHomeButton());
+  }
+  if (currentScreen != 'AddBookScreen') {
+    buttons.add(getAddBookButton());
+  }
+  if (currentScreen != 'NotStartedScreen') {
+    buttons.add(getNotStartedButton());
+  }
+  if (currentScreen != 'ReadingScreen') {
+    buttons.add(getReadingButton());
+  }
+  if (currentScreen != 'CompletedScreen') {
+    buttons.add(getCompletedButton());
+  }
+  return Container(
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: buttons,
+          ),
+  );
+}
+
 class CustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
@@ -33,24 +59,6 @@ class CustomScrollBehavior extends MaterialScrollBehavior {
 class Breakpoints {
   static const mobile = 600;
   static const tablet = 900;
-}
-
-Future<void> main() async {
-  await Hive.initFlutter();
-  await Hive.openBox("storage");
-  Get.lazyPut<BookListController>(() => BookListController());
-  runApp(
-    GetMaterialApp(
-      initialRoute: "/",
-      getPages: [
-        GetPage(name: "/", page: () => HomeScreen()),
-        GetPage(name: "/addbook", page: () => AddBookScreen()),
-        GetPage(name: "/notstarted", page: () => NotStartedScreen()),
-        GetPage(name: "/reading", page: () => ReadingScreen()),
-        GetPage(name: "/completed", page: () => CompletedScreen()),
-      ],
-    ),
-  );
 }
 
 class BookListController {
@@ -104,6 +112,24 @@ class BookListController {
     _save();
     Get.to(() => HomeScreen());
   }
+}
+
+Future<void> main() async {
+  await Hive.initFlutter();
+  await Hive.openBox("storage");
+  Get.lazyPut<BookListController>(() => BookListController());
+  runApp(
+    GetMaterialApp(
+      initialRoute: "/",
+      getPages: [
+        GetPage(name: "/", page: () => HomeScreen()),
+        GetPage(name: "/addbook", page: () => AddBookScreen()),
+        GetPage(name: "/notstarted", page: () => NotStartedScreen()),
+        GetPage(name: "/reading", page: () => ReadingScreen()),
+        GetPage(name: "/completed", page: () => CompletedScreen()),
+      ],
+    ),
+  );
 }
 
 class HomeScreen extends StatelessWidget {
@@ -198,13 +224,7 @@ class HomeScreen extends StatelessWidget {
           }
         }
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [getAddBookButton(), getNotStartedButton(), getReadingButton(), getCompletedButton()],
-        ),
-      ),
+      bottomNavigationBar: getNavigationButtons('HomeScreen'),
     );
   }
 }
@@ -276,13 +296,7 @@ class AddBookScreen extends StatelessWidget {
           ])
         )
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [getHomeButton(), getNotStartedButton(), getReadingButton(), getCompletedButton()],
-        ),
-      ),
+      bottomNavigationBar: getNavigationButtons('AddBookScreen'),
     );
   }
 }
@@ -321,13 +335,7 @@ class NotStartedScreen extends StatelessWidget {
           ]),
         )
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [getHomeButton(), getAddBookButton(), getReadingButton(), getCompletedButton()],
-        ),
-      ),
+      bottomNavigationBar: getNavigationButtons('NotStartedScreen'),
     );
   }
 }
@@ -366,13 +374,7 @@ class ReadingScreen extends StatelessWidget {
           ]),
         )
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [getHomeButton(), getAddBookButton(), getNotStartedButton(), getCompletedButton()],
-        ),
-      ),
+      bottomNavigationBar: getNavigationButtons('ReadingScreen'),
     );
   }
 }
@@ -411,13 +413,7 @@ class CompletedScreen extends StatelessWidget {
           ])
         )
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [getHomeButton(), getAddBookButton(), getNotStartedButton(), getReadingButton()],
-        ),
-      ),
+      bottomNavigationBar: getNavigationButtons('CompletedScreen'),
     );
   }
 }
