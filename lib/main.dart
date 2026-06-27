@@ -91,6 +91,17 @@ getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
         Row(children: [Text("You have read: ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
           Text("${getNumberOfBooksWithStatus('completed')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
         ]),
+        Row(children: [Text("Total books  : ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
+          Text("${controller.bookList.length}", style: TextStyle(height: 1.2, fontSize: textFontSize))
+        ]),
+        Column(children: [
+          Text("Show books by language:", style: TextStyle(height: 3, fontSize: textFontSize + 5)),
+          TextButton(child: Text("Finnish"), onPressed: () => Get.toNamed("/language/${"Finnish"}")),
+          TextButton(child: Text("Swedish"), onPressed: () => Get.toNamed("/language/${"Swedish"}")),
+          TextButton(child: Text("English"), onPressed: () => Get.toNamed("/language/${"English"}")),
+          TextButton(child: Text("Norwegian"), onPressed: () => Get.toNamed("/language/${"Norwegian"}")),
+          TextButton(child: Text("German"), onPressed: () => Get.toNamed("/language/${"German"}")),
+        ]),
       ]
     ),
   );
@@ -175,6 +186,7 @@ Future<void> main() async {
         GetPage(name: "/notstarted", page: () => NotStartedScreen()),
         GetPage(name: "/reading", page: () => ReadingScreen()),
         GetPage(name: "/completed", page: () => CompletedScreen()),
+        GetPage(name: "/language/:language", page: () => LanguageScreen()),
       ],
     ),
   );
@@ -388,6 +400,38 @@ class CompletedScreen extends StatelessWidget {
         )
       ),
       bottomNavigationBar: getNavigationButtons('CompletedScreen'),
+    );
+  }
+}
+
+class LanguageScreen extends StatelessWidget {
+  final controller = Get.find<BookListController>();
+
+  @override
+  Widget build(BuildContext context) {
+    var language = Get.parameters["language"] != null ? Get.parameters["language"]! : "all";
+
+    return Scaffold(
+      appBar: getAppBar("Books in $language"),
+      body: Column(
+        children: [
+          Column(children: controller.bookList.map((book) => 
+            book['language'] == language 
+              ? Card(child: ListTile(
+                  title: Text(book["title"]),
+                  subtitle: Text(book["author"]),
+                ))
+              : Text("")).toList()
+          ),
+          Text("Total books in $language: ${controller.bookList.where((book) => book['language'] == language).length}", 
+            style: TextStyle(height: 3, fontSize: 20)
+          ),
+          OutlinedButton(
+            onPressed: () => Get.back(),
+            child: Text("Go back"),
+          ),
+        ],
+      ),  // this screen doesn't have a bottom navigation bar, as it is accessed from the statistics section of the home screen
     );
   }
 }
