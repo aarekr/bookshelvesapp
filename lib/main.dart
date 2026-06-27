@@ -8,6 +8,7 @@ import 'dart:ui';
 
 import '/src/appbar.dart';
 import '/src/settings.dart';
+import '/src/bookstatistics.dart';
 import '/src/navigationbuttons.dart';
 
 /*getAppBar(title) {
@@ -59,7 +60,7 @@ getNavigationButtons(currentScreen) {
   );
 }
 
-getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
+/*getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
   var marginSize;
   var headerFontSize;
   var textFontSize;
@@ -109,7 +110,7 @@ getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
       ]
     ),
   );
-}
+}*/
 
 /*class CustomScrollBehavior extends MaterialScrollBehavior {
   @override
@@ -426,7 +427,7 @@ class LanguageScreen extends StatelessWidget {
                 book['language'] == language 
                   ? Card(child: ListTile(
                       title: Text(book["title"]),
-                      subtitle: Text(book["author"]),
+                      subtitle: Text(book["author"] + "\n(" + book["status"] + ")"),
                     ))
                   : Text("")).toList()
               ),
