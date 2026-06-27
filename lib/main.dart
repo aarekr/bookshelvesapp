@@ -17,7 +17,7 @@ import '/src/bookstatistics.dart';
   );
 }*/
 
-getHomeButton() {
+/*getHomeButton() {
   return OutlinedButton(child: Text("Home"), onPressed: () => Get.to(() => HomeScreen()));
 }
 getAddBookButton() {
@@ -31,24 +31,24 @@ getReadingButton() {
 }
 getCompletedButton() {
   return OutlinedButton(child: Text("Completed"), onPressed: () => Get.to(() => CompletedScreen()));
-}
+}*/
 
 getNavigationButtons(currentScreen) {
   List<Widget> buttons = [];
   if (currentScreen != 'HomeScreen') {
-    buttons.add(getHomeButton());
+    buttons.add(OutlinedButton(child: Text("Home"), onPressed: () => Get.to(() => HomeScreen())));
   }
   if (currentScreen != 'AddBookScreen') {
-    buttons.add(getAddBookButton());
+    buttons.add(OutlinedButton(child: Text("Add Book"), onPressed: () => Get.to(() => AddBookScreen())));
   }
   if (currentScreen != 'NotStartedScreen') {
-    buttons.add(getNotStartedButton());
+    buttons.add(OutlinedButton(child: Text("Not Started"), onPressed: () => Get.to(() => NotStartedScreen())));
   }
   if (currentScreen != 'ReadingScreen') {
-    buttons.add(getReadingButton());
+    buttons.add(OutlinedButton(child: Text("Reading"), onPressed: () => Get.to(() => ReadingScreen())));
   }
   if (currentScreen != 'CompletedScreen') {
-    buttons.add(getCompletedButton());
+    buttons.add(OutlinedButton(child: Text("Completed"), onPressed: () => Get.to(() => CompletedScreen())));
   }
   return Container(
           height: 50,
