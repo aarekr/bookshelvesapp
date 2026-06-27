@@ -7,6 +7,8 @@ import 'package:hive/hive.dart';
 import 'dart:ui';
 
 import '/src/appbar.dart';
+import '/src/settings.dart';
+import '/src/navigationbuttons.dart';
 
 /*getAppBar(title) {
   return AppBar(
@@ -109,7 +111,7 @@ getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
   );
 }
 
-class CustomScrollBehavior extends MaterialScrollBehavior {
+/*class CustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
     PointerDeviceKind.touch,
@@ -120,7 +122,7 @@ class CustomScrollBehavior extends MaterialScrollBehavior {
 class Breakpoints {
   static const mobile = 600;
   static const tablet = 900;
-}
+}*/
 
 class BookListController {
   final storage = Hive.box("storage");
