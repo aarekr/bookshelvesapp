@@ -6,12 +6,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 import 'dart:ui';
 
-getAppBar(title) {
+import '/src/appbar.dart';
+
+/*getAppBar(title) {
   return AppBar(
     backgroundColor: Theme.of(Get.context!).colorScheme.inversePrimary,
     title: Center(child: Text(title)),
   );
-}
+}*/
 
 getHomeButton() {
   return OutlinedButton(child: Text("Home"), onPressed: () => Get.to(() => HomeScreen()));
@@ -249,8 +251,8 @@ class AddBookScreen extends StatelessWidget {
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            Text("New books", style: TextStyle(height: 3, fontSize: 30)),
-            Text("Add a new book to reading list", style: TextStyle(height: 3, fontSize: 20)),
+            //Text("New books", style: TextStyle(height: 3, fontSize: 30)),
+            Text("Add a new book to your reading list", style: TextStyle(height: 3, fontSize: 20)),
             FormBuilder(
               key: _formKey,
               child: Column(
@@ -302,12 +304,12 @@ class NotStartedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar("Not Started"),
+      appBar: getAppBar("Books on reading list (not started)"),
       body: Center(child:
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            Text("Books on reading list", style: TextStyle(height: 3, fontSize: 30)),
+            //Text("Books on reading list", style: TextStyle(height: 3, fontSize: 30)),
             Column(children: controller.bookList.map((book) => 
               book['status'] == 'not started' 
                 ? Card(child: ListTile(
@@ -338,12 +340,12 @@ class ReadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar("Reading"),
+      appBar: getAppBar("You are currently reading"),
       body: Center(child:
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            Center(child: Text("You are currently reading", style: TextStyle(height: 3, fontSize: 30))),
+            //Center(child: Text("You are currently reading", style: TextStyle(height: 3, fontSize: 30))),
             Column(children: controller.bookList.map((book) => 
               book['status'] == 'reading' 
                 ? Card(child: ListTile(
@@ -374,12 +376,12 @@ class CompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar("Completed"),
+      appBar: getAppBar("Completed books"),
       body: Center(child:
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            Center(child: Text("Completed books", style: TextStyle(height: 3, fontSize: 30))),
+            //Center(child: Text("Completed books", style: TextStyle(height: 3, fontSize: 30))),
             Column(children: controller.bookList.map((book) => 
               book['status'] == 'completed' 
                 ? Card(child: ListTile(
@@ -413,24 +415,29 @@ class LanguageScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: getAppBar("Books in $language"),
-      body: Column(
-        children: [
-          Column(children: controller.bookList.map((book) => 
-            book['language'] == language 
-              ? Card(child: ListTile(
-                  title: Text(book["title"]),
-                  subtitle: Text(book["author"]),
-                ))
-              : Text("")).toList()
-          ),
-          Text("Total books in $language: ${controller.bookList.where((book) => book['language'] == language).length}", 
-            style: TextStyle(height: 3, fontSize: 20)
-          ),
-          OutlinedButton(
-            onPressed: () => Get.back(),
-            child: Text("Go back"),
-          ),
-        ],
+      body: Center(child:
+        Container(
+          constraints: BoxConstraints(maxWidth: 800),
+          child: Column(
+            children: [
+              Column(children: controller.bookList.map((book) => 
+                book['language'] == language 
+                  ? Card(child: ListTile(
+                      title: Text(book["title"]),
+                      subtitle: Text(book["author"]),
+                    ))
+                  : Text("")).toList()
+              ),
+              Text("Total books in $language: ${controller.bookList.where((book) => book['language'] == language).length}", 
+                style: TextStyle(height: 3, fontSize: 20)
+              ),
+              OutlinedButton(
+                onPressed: () => Get.back(),
+                child: Text("Go back"),
+              ),
+            ],
+          )
+        )
       ),  // this screen doesn't have a bottom navigation bar, as it is accessed from the statistics section of the home screen
     );
   }
