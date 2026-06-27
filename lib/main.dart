@@ -9,7 +9,6 @@ import 'dart:ui';
 import '/src/appbar.dart';
 import '/src/settings.dart';
 import '/src/bookstatistics.dart';
-import '/src/navigationbuttons.dart';
 
 /*getAppBar(title) {
   return AppBar(
@@ -200,7 +199,7 @@ Future<void> main() async {
 class HomeScreen extends StatelessWidget {
   final controller = Get.find<BookListController>();
 
-  int getNumberOfBooksWithStatus(String status) {
+  /*int getNumberOfBooksWithStatus(String status) {
     int number = 0;
     for (var i=0; i<controller.bookList.length; i++) {
       if(controller.bookList[i]['status'] == status) {
@@ -208,7 +207,7 @@ class HomeScreen extends StatelessWidget {
       }
     }
     return number;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -217,13 +216,13 @@ class HomeScreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth < Breakpoints.mobile) {  // mobile layout
-            return getBookStatistics('mobile', controller, getNumberOfBooksWithStatus);
+            return getBookStatistics('mobile', controller);
           }
           else if (constraints.maxWidth < Breakpoints.tablet) {  // tablet layout
-            return getBookStatistics('tablet', controller, getNumberOfBooksWithStatus);
+            return getBookStatistics('tablet', controller);
           }
           else {  // large screen layout
-            return getBookStatistics('large', controller, getNumberOfBooksWithStatus);
+            return getBookStatistics('large', controller);
           }
         }
       ),

@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
+int getNumberOfBooksWithStatus(String status, controller) {
+    int number = 0;
+    for (var i=0; i<controller.bookList.length; i++) {
+      if(controller.bookList[i]['status'] == status) {
+        number++;
+      }
+    }
+    return number;
+}
+
+getBookStatistics(layoutSize, controller) {
   var marginSize;
   var headerFontSize;
   var textFontSize;
@@ -29,13 +39,13 @@ getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
       children: [
         Row(children: [Text("Statistics", style: TextStyle(height: 3, fontSize: headerFontSize))]),
         Row(children: [Text("Books to read: ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
-          Text("${getNumberOfBooksWithStatus('not started')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
+          Text("${getNumberOfBooksWithStatus('not started', controller)}", style: TextStyle(height: 1.2, fontSize: textFontSize))
         ]),
         Row(children: [Text("Reading now  : ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
-          Text("${getNumberOfBooksWithStatus('reading')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
+          Text("${getNumberOfBooksWithStatus('reading', controller)}", style: TextStyle(height: 1.2, fontSize: textFontSize))
         ]),
         Row(children: [Text("You have read: ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
-          Text("${getNumberOfBooksWithStatus('completed')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
+          Text("${getNumberOfBooksWithStatus('completed', controller)}", style: TextStyle(height: 1.2, fontSize: textFontSize))
         ]),
         Row(children: [Text("Total books  : ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
           Text("${controller.bookList.length}", style: TextStyle(height: 1.2, fontSize: textFontSize))
