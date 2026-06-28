@@ -5,6 +5,7 @@ Application for managing books
 ### Details
 * [Project Requirements](https://github.com/aarekr/bookshelvesapp/blob/main/documentation/Project_Requirements.md)
 * [Application on GitHub Pages](https://aarekr.github.io/bookshelvesapp-demo/)
+* [Web demo repo](https://github.com/aarekr/bookshelvesapp-demo)
 
 ### Manual
 * The application start on Home page that shows book statistics and lets users choose books by language
