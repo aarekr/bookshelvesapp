@@ -10,29 +10,6 @@ import '/src/appbar.dart';
 import '/src/settings.dart';
 import '/src/bookstatistics.dart';
 
-/*getAppBar(title) {
-  return AppBar(
-    backgroundColor: Theme.of(Get.context!).colorScheme.inversePrimary,
-    title: Center(child: Text(title)),
-  );
-}*/
-
-/*getHomeButton() {
-  return OutlinedButton(child: Text("Home"), onPressed: () => Get.to(() => HomeScreen()));
-}
-getAddBookButton() {
-  return OutlinedButton(child: Text("Add Book"), onPressed: () => Get.to(() => AddBookScreen()));
-}
-getNotStartedButton() {
-  return OutlinedButton(child: Text("Not Started"), onPressed: () => Get.to(() => NotStartedScreen()));
-}
-getReadingButton() {
-  return OutlinedButton(child: Text("Reading"), onPressed: () => Get.to(() => ReadingScreen()));
-}
-getCompletedButton() {
-  return OutlinedButton(child: Text("Completed"), onPressed: () => Get.to(() => CompletedScreen()));
-}*/
-
 getNavigationButtons(currentScreen) {
   List<Widget> buttons = [];
   if (currentScreen != 'HomeScreen') {
@@ -58,71 +35,6 @@ getNavigationButtons(currentScreen) {
           ),
   );
 }
-
-/*getBookStatistics(layoutSize, controller, getNumberOfBooksWithStatus) {
-  var marginSize;
-  var headerFontSize;
-  var textFontSize;
-  if (layoutSize == 'mobile') {
-    marginSize = 40.0;
-    headerFontSize = 30.0;
-    textFontSize = 20.0;
-  }
-  else if (layoutSize == 'tablet') {
-    marginSize = 50.0;
-    headerFontSize = 35.0;
-    textFontSize = 23.0;
-  }
-  else {
-    marginSize = 60.0;
-    headerFontSize = 40.0;
-    textFontSize = 25.0;
-  }
-  return Container(
-    alignment: Alignment.center,
-    margin: EdgeInsets.all(marginSize),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(children: [Text("Statistics", style: TextStyle(height: 3, fontSize: headerFontSize))]),
-        Row(children: [Text("Books to read: ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
-          Text("${getNumberOfBooksWithStatus('not started')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
-        ]),
-        Row(children: [Text("Reading now  : ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
-          Text("${getNumberOfBooksWithStatus('reading')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
-        ]),
-        Row(children: [Text("You have read: ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
-          Text("${getNumberOfBooksWithStatus('completed')}", style: TextStyle(height: 1.2, fontSize: textFontSize))
-        ]),
-        Row(children: [Text("Total books  : ", style: TextStyle(height: 1.2, fontSize: textFontSize)),
-          Text("${controller.bookList.length}", style: TextStyle(height: 1.2, fontSize: textFontSize))
-        ]),
-        Column(children: [
-          Text("Show books by language:", style: TextStyle(height: 3, fontSize: textFontSize + 5)),
-          TextButton(child: Text("Finnish"), onPressed: () => Get.toNamed("/language/${"Finnish"}")),
-          TextButton(child: Text("Swedish"), onPressed: () => Get.toNamed("/language/${"Swedish"}")),
-          TextButton(child: Text("English"), onPressed: () => Get.toNamed("/language/${"English"}")),
-          TextButton(child: Text("Norwegian"), onPressed: () => Get.toNamed("/language/${"Norwegian"}")),
-          TextButton(child: Text("German"), onPressed: () => Get.toNamed("/language/${"German"}")),
-        ]),
-      ]
-    ),
-  );
-}*/
-
-/*class CustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-  };
-}
-
-class Breakpoints {
-  static const mobile = 600;
-  static const tablet = 900;
-}*/
 
 class BookListController {
   final storage = Hive.box("storage");
@@ -199,16 +111,6 @@ Future<void> main() async {
 class HomeScreen extends StatelessWidget {
   final controller = Get.find<BookListController>();
 
-  /*int getNumberOfBooksWithStatus(String status) {
-    int number = 0;
-    for (var i=0; i<controller.bookList.length; i++) {
-      if(controller.bookList[i]['status'] == status) {
-        number++;
-      }
-    }
-    return number;
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,7 +155,6 @@ class AddBookScreen extends StatelessWidget {
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            //Text("New books", style: TextStyle(height: 3, fontSize: 30)),
             Text("Add a new book to your reading list", style: TextStyle(height: 3, fontSize: 20)),
             FormBuilder(
               key: _formKey,
@@ -311,7 +212,6 @@ class NotStartedScreen extends StatelessWidget {
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            //Text("Books on reading list", style: TextStyle(height: 3, fontSize: 30)),
             Column(children: controller.bookList.map((book) => 
               book['status'] == 'not started' 
                 ? Card(child: ListTile(
@@ -347,7 +247,6 @@ class ReadingScreen extends StatelessWidget {
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            //Center(child: Text("You are currently reading", style: TextStyle(height: 3, fontSize: 30))),
             Column(children: controller.bookList.map((book) => 
               book['status'] == 'reading' 
                 ? Card(child: ListTile(
@@ -383,7 +282,6 @@ class CompletedScreen extends StatelessWidget {
         Container(
           constraints: BoxConstraints(maxWidth: 800),
           child: Column(children: [
-            //Center(child: Text("Completed books", style: TextStyle(height: 3, fontSize: 30))),
             Column(children: controller.bookList.map((book) => 
               book['status'] == 'completed' 
                 ? Card(child: ListTile(
