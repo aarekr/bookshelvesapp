@@ -11,4 +11,4 @@ Interaction                       | Books can be marked reading started, complet
 Statistics                        | Number of books not read, reading, completed |
 Main + min. 3 screens             | Home, AddBook, NotStarted, Reading, Completed, Language |
 Min. 1 screen uses path variables | Language Screen uses path variables and has no bottom navigation buttons |
-App online                        |     |
+App online                        | [Application on GitHub Pages](https://aarekr.github.io/bookshelvesapp-demo/) |

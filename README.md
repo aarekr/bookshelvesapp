@@ -13,3 +13,8 @@ Application for managing books
 * Marking books as reading completed: go to Reading page, click on Complete next to book details
 * Starting reading again: go to Completed page and click on Reset next to book details
 * Deleting books: go to Completed page and click on bin icon
+
+### Further development and improvements
+* Statistics page should have items centered like other pages
+* Mobile phone with small screens do not fit all navigation buttons and they overflow to right
+* Visualisation / graphics are minimal and should be improved
